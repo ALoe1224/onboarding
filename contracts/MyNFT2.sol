@@ -216,4 +216,4 @@ contract MyNFT2 is IERC721{
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal virtual {}
     /// 転送・発行・焼却の直前に呼ばれる空の関数。
     /// 送信制限やログ追加など、後から処理を追加したいときに使える。
-}y
+}
