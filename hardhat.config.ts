@@ -17,7 +17,7 @@ export default defineConfig({
     gethLocal: {
       type: "http",
       url: "http://127.0.0.1:8545",
-      chainId: 1337,
+      chainId: 12345,
       accounts: "remote",
       timeout: 300000,
     },

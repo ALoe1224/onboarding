@@ -26,8 +26,8 @@ async function main() {
   const tx = contract.deploymentTransaction();
   console.log("Transaction sent:", tx?.hash);
 
-  console.log("Waiting 3 seconds before checking receipt...");
-  await sleep(3000);
+  console.log("Waiting 10 seconds before checking receipt...");
+  await sleep(10000);
 
   await contract.waitForDeployment();
 
