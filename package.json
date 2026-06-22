@@ -16,11 +16,5 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.6"
-  },
-  "scripts": {
-    "geth:test:start": "powershell -ExecutionPolicy Bypass -File ./geth-test/start-geth-test.ps1",
-    "geth:test:clean": "powershell -ExecutionPolicy Bypass -File ./geth-test/clean-geth-test.ps1",
-    "deploy:geth": "npx hardhat run scripts/deploy.ts --network gethTest",
-    "test:geth": "npx hardhat test --network gethTest"
   }
 }
