@@ -1,41 +1,70 @@
 import { network } from "hardhat";
-
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
 
 async function main() {
-  const contractName = "MyToken";
-  const constructorArgs: unknown[] = [1000n * 10n ** 18n];
+  // --networkで指定されたネットワークへ接続
+  const { ethers, networkName } = await network.create();
 
-  const { ethers } = await network.create();
+  const contractName = "ShareRegistry";
 
-  console.log(`Deploying ${contractName}...`);
+  console.log(`Deploying ${contractName} to ${networkName}...`);
 
+  // デプロイに使用するアカウント
   const [deployer] = await ethers.getSigners();
 
   console.log("Deploying with account:", deployer.address);
-  console.log(
-    "Balance:",
-    (await ethers.provider.getBalance(deployer.address)).toString()
-  );
 
-  const ContractFactory = await ethers.getContractFactory(contractName);
-  const contract = await ContractFactory.deploy(...constructorArgs);
+  const balance = await ethers.provider.getBalance(deployer.address);
+  console.log("Account balance:", ethers.formatEther(balance), "ETH");
 
-  const tx = contract.deploymentTransaction();
-  console.log("Transaction sent:", tx?.hash);
+  // コントラクトをデプロイ
+  const contract = await ethers.deployContract(contractName);
 
-  console.log("Waiting 10 seconds before checking receipt...");
-  await sleep(10000);
+  console.log("Waiting for deployment...");
 
   await contract.waitForDeployment();
 
-  const address = await contract.getAddress();
-  console.log(`${contractName} deployed to:`, address);
+  const contractAddress = await contract.getAddress();
+  const deploymentTx = contract.deploymentTransaction();
+
+  console.log(`${contractName} deployed successfully`);
+  console.log("Network:", networkName);
+  console.log("Contract address:", contractAddress);
+
+  if (deploymentTx !== null) {
+    console.log("Transaction hash:", deploymentTx.hash);
+  }
+
+  // デプロイ情報をJSONファイルへ保存
+  const deploymentDirectory = path.resolve("deployments");
+  const deploymentFile = path.join(
+    deploymentDirectory,
+    `${networkName}.json`
+  );
+
+  await mkdir(deploymentDirectory, { recursive: true });
+
+  const deploymentData = {
+    network: networkName,
+    contractName,
+    contractAddress,
+    deployer: deployer.address,
+    transactionHash: deploymentTx?.hash ?? null,
+    deployedAt: new Date().toISOString(),
+  };
+
+  await writeFile(
+    deploymentFile,
+    JSON.stringify(deploymentData, null, 2) + "\n",
+    "utf8"
+  );
+
+  console.log("Deployment information saved to:", deploymentFile);
 }
 
 main().catch((error) => {
+  console.error("Deployment failed:");
   console.error(error);
   process.exitCode = 1;
 });
