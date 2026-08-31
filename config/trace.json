@@ -1,0 +1,5 @@
+{
+  "inputFile": "/home/ueki/music_block_chain/audiowmark-test/watermarked/trial_72ff1a9cd9cbffff08945dcd6f1b500e.wav",
+  "keyFile": "/home/ueki/music_block_chain/audiowmark-test/keys/research.key",
+  "resultsDirectory": "/home/ueki/music_block_chain/audiowmark-test/results"
+}

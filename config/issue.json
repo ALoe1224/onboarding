@@ -1,0 +1,8 @@
+{
+  "inputFile": "/home/ueki/music_block_chain/audiowmark-test/input/trial.wav",
+  "recipient": "0x1000000000000000000000000000000000000003",
+  "keyFile": "/home/ueki/music_block_chain/audiowmark-test/keys/research.key",
+  "watermarkedDirectory": "/home/ueki/music_block_chain/audiowmark-test/watermarked",
+  "resultsDirectory": "/home/ueki/music_block_chain/audiowmark-test/results",
+  "strength": 10
+}
