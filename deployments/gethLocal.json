@@ -1,0 +1,8 @@
+{
+  "network": "gethLocal",
+  "contractName": "ShareRegistry",
+  "contractAddress": "0x91B1bee692dFd23E9c73545225c1f335E467281b",
+  "deployer": "0x82F31Fa87c4bF01243C2007583bE880021d2d17d",
+  "transactionHash": "0xf777d3fec200cf301176d090c816812b25486b021fff8f078a3f844ef49893a3",
+  "deployedAt": "2026-08-31T20:44:23.037Z"
+}
